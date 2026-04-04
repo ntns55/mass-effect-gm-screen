@@ -1,0 +1,128 @@
+\usepackage[a4paper,landscape,margin=0cm]{geometry}
+
+% Core packages
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{pagecolor}
+\usepackage{eso-pic}
+\usepackage{ifthen}
+\usepackage{etoolbox}
+\usepackage{ragged2e}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+
+% Sci-fi palette
+\definecolor{ScreenBg}{HTML}{0B1020}
+\definecolor{PanelLine}{HTML}{1D9BF0}
+\definecolor{PanelGlow}{HTML}{6FD3FF}
+\definecolor{PanelText}{HTML}{EAF6FF}
+\definecolor{PanelMuted}{HTML}{9DB7C8}
+\definecolor{PanelBoxBg}{HTML}{101A2E}
+\definecolor{PanelBoxBorder}{HTML}{2E5D7A}
+\definecolor{AccentWarn}{HTML}{F5A623}
+
+\color{PanelText}
+\pagecolor{ScreenBg}
+
+% Section styling
+\titleformat{\section}
+  {\Large\bfseries\color{PanelGlow}}
+  {}
+  {0pt}
+  {}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{PanelLine}}
+  {}
+  {0pt}
+  {}
+
+\titlespacing*{\section}{0pt}{0.4em}{0.3em}
+\titlespacing*{\subsection}{0pt}{0.3em}{0.2em}
+
+% Itemize styling
+\setlist[itemize]{
+  leftmargin=1.2em,
+  itemsep=0.2em,
+  topsep=0.2em
+}
+
+% Table helpers
+\renewcommand{\arraystretch}{1.15}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+
+% Box style
+\tcbset{
+  screenbox/.style={
+    enhanced,
+    colback=PanelBoxBg,
+    colframe=PanelBoxBorder,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=1.5mm,
+    bottom=1.5mm,
+    opacityback=0.92,
+    breakable
+  }
+}
+
+% Reusable UI elements
+\newcommand{\paneltitle}[1]{%
+  {\Large\bfseries\color{PanelGlow} #1}\par\vspace{0.4em}
+  {\color{PanelLine}\rule{\linewidth}{0.6pt}}\par\vspace{0.6em}
+}
+
+\newcommand{\screensubtitle}[1]{%
+  {\bfseries\color{PanelLine} #1}\par\vspace{0.25em}
+}
+
+\newcommand{\infobox}[2]{%
+  \begin{tcolorbox}[screenbox,title=\textcolor{PanelGlow}{#1}]
+  #2
+  \end{tcolorbox}
+}
+
+% Background helper
+\newcommand{\panelbackground}[4]{%
+  \AddToShipoutPictureBG*{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=south west] at (current page.south west)
+        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#1}};
+      \node[anchor=south west] at ([xshift=.25\paperwidth]current page.south west)
+        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#2}};
+      \node[anchor=south west] at ([xshift=.50\paperwidth]current page.south west)
+        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#3}};
+      \node[anchor=south west] at ([xshift=.75\paperwidth]current page.south west)
+        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#4}};
+
+      % Fold guides
+      \draw[PanelLine,opacity=0.35,line width=0.7pt]
+        ([xshift=.25\paperwidth]current page.south west) -- ([xshift=.25\paperwidth]current page.north west);
+      \draw[PanelLine,opacity=0.35,line width=0.7pt]
+        ([xshift=.50\paperwidth]current page.south west) -- ([xshift=.50\paperwidth]current page.north west);
+      \draw[PanelLine,opacity=0.35,line width=0.7pt]
+        ([xshift=.75\paperwidth]current page.south west) -- ([xshift=.75\paperwidth]current page.north west);
+    \end{tikzpicture}%
+  }
+}
+
+\newenvironment{panelcontent}
+  {\begin{minipage}[t][0.94\paperheight][t]{0.22\paperwidth}\color{PanelText}\small}
+  {\end{minipage}}
+
+\newenvironment{panelcols}
+  {\begin{multicols}{2}\setlength{\columnsep}{0.8em}}
+  {\end{multicols}}

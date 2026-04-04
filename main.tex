@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\input{preamble}
+
+\begin{document}
+
+\panelbackground
+  {assets/panel1.png}
+  {assets/panel2.png}
+  {assets/panel3.png}
+  {assets/panel4.png}
+
+\vspace*{0.03\paperheight}
+\noindent
+\hspace*{0.015\paperwidth}
+\begin{panelcontent}
+  \input{content/panel1}
+\end{panelcontent}
+\hfill
+\begin{panelcontent}
+  \input{content/panel2}
+\end{panelcontent}
+\hfill
+\begin{panelcontent}
+  \input{content/panel3}
+\end{panelcontent}
+\hfill
+\begin{panelcontent}
+  \input{content/panel4}
+\end{panelcontent}
+\hspace*{0.015\paperwidth}
+
+\end{document}
