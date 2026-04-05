@@ -1,5 +1,204 @@
-\paneltitle{SHIPS}
+\begin{scifitablebox}[screenbox,title=\textcolor{PanelGlow}{Shields (Quick Reference)}]
 
-\begin{tcolorbox}[screenbox,title=\textcolor{PanelGlow}{Systems}]
-Placeholder content for ships, tech, or hazards.
-\end{tcolorbox}
+\textbf{Start Regeneration (must meet one):}
+\begin{itemize}
+\item Take \textbf{Hide}, \textbf{Dodge}, or \textbf{Disengage}
+\item OR have \textbf{full cover} at end of turn
+\end{itemize}
+
+\textbf{Activation Condition:}
+\begin{itemize}
+\item Take \textbf{no damage} until start of next turn
+\end{itemize}
+
+\textbf{Regeneration Effect:}
+\begin{itemize}
+\item Gain shield points = \textbf{armor regen stat}
+\item Continues each turn at start of turn
+\end{itemize}
+
+\textbf{Regeneration Ends If:}
+\begin{itemize}
+\item You take damage
+\item Shields reach maximum capacity
+\end{itemize}
+
+\end{scifitablebox}
+
+
+\begin{scifitablebox}[screenbox,title=\textcolor{PanelGlow}{Combat Step by Step}]
+\begin{enumerate}
+  \item \textbf{\underline{Determine surprise.}}\newline
+  The GM determines whether anyone involved in the combat encounter is surprised.  
+  \item \textbf{\underline{Establish positions.}}\newline
+  The GM decides where all the characters and monsters are located. Given the operatives' marching order or their stated positions in the room or other location, the GM figures out where the adversaries ar - -how far away and in what direction.
+  \item \textbf{\underline{Roll initiative.}}\newline
+  Everyone involved in the combat encounter rolls initiative, determining the order of combatants' turns.
+  \item \textbf{\underline{Take turns.}}\newline
+  Each participant in the battle takes a turn in initiative order.
+  \item \textbf{\underline{Begin the next round.}}\newline
+  When everyone involved in the combat has had a turn, the round ends. Repeat step 4 until the fighting stops.
+\end{enumerate}
+\end{scifitablebox}
+
+\begin{scifitablebox}[screenbox,title=\textcolor{PanelGlow}{Combat Actions}]
+\textbf{Attack}
+\begin{itemize}
+\item Make a melee or ranged attack.
+\end{itemize}
+
+\textbf{Cast a Spell}
+\begin{itemize}
+\item Uses casting time (often 1 action). May require action, reaction, or longer.
+\end{itemize}
+
+\textbf{Dash}
+\begin{itemize}
+\item Gain extra movement = your speed. Modified by speed changes.
+\end{itemize}
+
+\textbf{Disengage}
+\begin{itemize}
+\item Movement does not provoke opportunity attacks. Can trigger user shield regeneration.
+\end{itemize}
+
+\textbf{Dodge}
+\begin{itemize}
+\item Attacks vs you have disadvantage (if seen) and advantage on Dexterity saves.
+\item Ends if incapacitated or speed = 0.
+\item Can trigger user shield regeneration.
+\end{itemize}
+
+\textbf{Help}
+\begin{itemize}
+\item Grant advantage on ally's next ability check \underline{OR} advantage on next attack vs target within 2m.
+\end{itemize}
+
+\textbf{Hide}
+\begin{itemize}
+\item Make Dexterity (Stealth) check. On Success gain benefits as unseen attacker.
+\item Can trigger user shield regeneration.
+\end{itemize}
+
+\textbf{Ready}
+\begin{itemize}
+\item Prepare action or movement with a trigger. Uses reaction when triggered.
+\end{itemize}
+
+\textbf{Reload}
+\begin{itemize}
+\item Replace thermal clip → restore weapon heat.
+\item \textbf{Variant: Rapid Reload} - only if holding only a single weapon.
+    \begin{itemize}
+    \item Bonus Action, DC 15 Sleight of Hand.
+    \item Success: reload normally.
+    \item Failure: must Reload action.
+    \item Critical failure: drop clip, lose Action.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Search}
+\begin{itemize}
+\item Make Perception or Investigation check.
+\end{itemize}
+
+\textbf{Use an Object}
+\begin{itemize}
+\item Use objects requiring an action (e.g. grenade).
+\end{itemize}
+
+\textbf{Grapple (Attack replacement)}
+\begin{itemize}
+\item Target $\leq$ 1 size larger, within reach.
+\item Contest: Athletics vs Athletics/Acrobatics.
+\item Escape: same contest using action.
+\item Move target: speed halved (unless much smaller).
+\end{itemize}
+
+\textbf{Shove (Attack replacement)}
+\begin{itemize}
+\item Target $\leq$ 1 size larger, within reach.
+\item Contest: Athletics vs Athletics/Acrobatics.
+\item Result: knock prone OR push 2m.
+\end{itemize}
+
+\end{scifitablebox}
+
+\begin{scifitablebox}[screenbox,title=\textcolor{PanelGlow}{Primers \& Detonators (Quick Reference)}]
+
+\textbf{Optional Rule}
+
+\textbf{Priming}
+\begin{itemize}
+\item Certain abilities apply \textbf{Primed}
+\end{itemize}
+
+\textbf{Detonation}
+\begin{itemize}
+\item Triggered by detonator abilities
+\item Ends \textbf{Primed} → causes explosion
+\end{itemize}
+
+\textbf{General Rules}
+\begin{itemize}
+\item Multiple different primed types allowed
+\item All detonate simultaneously
+\item GM determines (or randomizes) order
+\item Scaling based on primer's source level:
+\begin{itemize}
+\item 5th, 11th, 17th level improvements
+\end{itemize}
+\end{itemize}
+
+\textbf{Detonation Effects}
+
+\textbf{Cold (AoE 4m)}
+\begin{itemize}
+\item STR save (DC 15 → 16/17/18)
+\item Fail: \textbf{Frozen} (1 turn)
+\end{itemize}
+
+\textbf{Fire (AoE 4m)}
+\begin{itemize}
+\item 1d6 fire + burn (1 min, 1d6/turn)
+\item Action to extinguish
+\item Scaling: 2d6 / 3d6 / 4d6
+\end{itemize}
+
+\textbf{Force (Single Target)}
+\begin{itemize}
+\item 2d6 force, knockback 6m, prone
+\item Scaling: 3d6 / 4d6 / 5d6
+\end{itemize}
+
+\textbf{Lightning (AoE 4m)}
+\begin{itemize}
+\item 3d4 lightning
+\item Scaling: 4d4 / 5d4 / 6d4
+\end{itemize}
+
+\textbf{Necrotic (Single Target)}
+\begin{itemize}
+\item 1d12 necrotic
+\item CON save (DC 13) or \textbf{Stunned} (1 turn)
+\end{itemize}
+
+\textbf{Radiant (AoE 4m)}
+\begin{itemize}
+\item While primed: \textbf{Poisoned}
+\item Detonate: 3d4 radiant
+\item CON save (DC 15) or poisoned (1 hour)
+\end{itemize}
+
+\end{scifitablebox}
+
+
+
+    \paneltitle{OTHER VARIANT RULES}
+\begin{scifitablebox}[screenbox,title=\textcolor{PanelGlow}{Paragon \& Renegade}]
+This is a variant rule. You can play without it.
+\begin{itemize}
+  \item Give points based on choice and in groupings of 1-5. (More for major story beats.)
+  \item A skill check can be augmented by P/R if you think it makes sense. They gain +1 for every 10 points they have of the appropriate stat.
+\end{itemize}
+\end{scifitablebox}

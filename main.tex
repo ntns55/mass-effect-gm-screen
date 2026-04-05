@@ -1,33 +1,24 @@
-\documentclass{article}
+\documentclass[a4paper,landscape]{article}
 
 \input{preamble}
 
 \begin{document}
 
-\panelbackground
-  {assets/panel1.png}
-  {assets/panel2.png}
-  {assets/panel3.png}
-  {assets/panel4.png}
-
-\vspace*{0.03\paperheight}
-\noindent
-\hspace*{0.015\paperwidth}
-\begin{panelcontent}
+\begin{panelpage}[4]{assets/mainpanel.png}
+  \panelnote{Unknown}{Mass Effect 5e v1.2.0}
+  \paneltitle{CHARACTERS}
   \input{content/panel1}
-\end{panelcontent}
-\hfill
-\begin{panelcontent}
+  \end{panelpage}
+
+\begin{panelpage}[3]{assets/mainpanel.png}
+  \paneltitle{VEHICLES}
   \input{content/panel2}
-\end{panelcontent}
-\hfill
-\begin{panelcontent}
+
+  \paneltitle{STARSHIP COMBAT}
   \input{content/panel3}
-\end{panelcontent}
-\hfill
-\begin{panelcontent}
+    \paneltitle{COMBAT}
   \input{content/panel4}
-\end{panelcontent}
-\hspace*{0.015\paperwidth}
+  \includegraphics[width=\linewidth]{assets/Shephard.png}
+\end{panelpage}
 
 \end{document}

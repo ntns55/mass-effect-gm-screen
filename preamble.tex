@@ -1,6 +1,7 @@
-\usepackage[a4paper,landscape,margin=0cm]{geometry}
+\usepackage[a4paper,landscape,margin=1cm]{geometry}
 
 % Core packages
+\usepackage{changepage}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{xcolor}
@@ -12,11 +13,12 @@
 \usepackage[most]{tcolorbox}
 \usepackage{pagecolor}
 \usepackage{eso-pic}
-\usepackage{ifthen}
-\usepackage{etoolbox}
 \usepackage{ragged2e}
 \usepackage{titlesec}
 \usepackage[hidelinks]{hyperref}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{etoolbox}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
@@ -26,14 +28,21 @@
 \definecolor{ScreenBg}{HTML}{0B1020}
 \definecolor{PanelLine}{HTML}{1D9BF0}
 \definecolor{PanelGlow}{HTML}{6FD3FF}
-\definecolor{PanelText}{HTML}{EAF6FF}
-\definecolor{PanelMuted}{HTML}{9DB7C8}
+\definecolor{PanelText}{HTML}{FFFFFF}
+\definecolor{PanelMuted}{HTML}{B8CAD6}
 \definecolor{PanelBoxBg}{HTML}{101A2E}
 \definecolor{PanelBoxBorder}{HTML}{2E5D7A}
 \definecolor{AccentWarn}{HTML}{F5A623}
+\definecolor{PanelNote}{HTML}{C7D6E2}
+\definecolor{TableHeaderBg}{HTML}{6FD3FF}
+\definecolor{TableHeaderText}{HTML}{0A2A4A}
+\definecolor{TableRowAlt}{HTML}{16233A}
+\definecolor{TableRule}{HTML}{3C6E8F}
 
 \color{PanelText}
 \pagecolor{ScreenBg}
+\setlength{\maxbalancingoverflow}{0pt}
+
 
 % Section styling
 \titleformat{\section}
@@ -66,23 +75,72 @@
 \tcbset{
   screenbox/.style={
     enhanced,
+    breakable,
     colback=PanelBoxBg,
     colframe=PanelBoxBorder,
-    boxrule=0.6pt,
+    coltext=PanelText,
+    coltitle=PanelText,
+    boxrule=0.7pt,
     arc=2mm,
     left=2mm,
     right=2mm,
     top=1.5mm,
     bottom=1.5mm,
     opacityback=0.92,
-    breakable
+    fonttitle=\bfseries,
+    title filled=false
   }
 }
 
 % Reusable UI elements
 \newcommand{\paneltitle}[1]{%
-  {\Large\bfseries\color{PanelGlow} #1}\par\vspace{0.4em}
-  {\color{PanelLine}\rule{\linewidth}{0.6pt}}\par\vspace{0.6em}
+  \begin{tcolorbox}[
+    enhanced,
+    colback=PanelLine!20,
+    colframe=PanelLine,
+    boxrule=0.8pt,
+    arc=1mm,
+    left=3mm,
+    right=3mm,
+    top=1.5mm,
+    bottom=1.5mm,
+    width=\linewidth,
+  ]
+  {\Large\bfseries\color{PanelBoxBg} #1}
+
+  \vspace{0.3em}
+  {\color{PanelBoxBg}\rule{\linewidth}{0.4pt}}
+  \end{tcolorbox}
+  \vspace{0.5em}
+}
+
+\newcommand{\panelmargintitle}[1]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[
+      anchor=north west,
+      xshift=1cm,
+      yshift=-0.45cm,
+      inner sep=0pt,
+      outer sep=0pt
+    ] at (current page.north west) {%
+      \begin{tcolorbox}[
+        enhanced,
+        colback=PanelLine!20,
+        colframe=PanelLine,
+        boxrule=0.8pt,
+        arc=1mm,
+        left=3mm,
+        right=3mm,
+        top=1.2mm,
+        bottom=1.2mm,
+        width=\dimexpr\paperwidth-2cm\relax
+      ]
+      {\Large\bfseries\color{PanelBoxBg} #1}\par
+      \vspace{0.2em}
+      {\color{PanelBoxBg}\rule{\dimexpr\paperwidth-2.8cm\relax}{0.4pt}}
+      \end{tcolorbox}
+    };
+  \end{tikzpicture}%
 }
 
 \newcommand{\screensubtitle}[1]{%
@@ -90,39 +148,213 @@
 }
 
 \newcommand{\infobox}[2]{%
-  \begin{tcolorbox}[screenbox,title=\textcolor{PanelGlow}{#1}]
+  \begin{tcolorbox}[screenbox,title={#1}]
   #2
   \end{tcolorbox}
 }
 
-% Background helper
-\newcommand{\panelbackground}[4]{%
-  \AddToShipoutPictureBG*{%
+% Full-page background for a single panel
+\newcommand{\pagebackground}[1]{%
+  \AddToShipoutPictureBG{%
     \begin{tikzpicture}[remember picture,overlay]
-      \node[anchor=south west] at (current page.south west)
-        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#1}};
-      \node[anchor=south west] at ([xshift=.25\paperwidth]current page.south west)
-        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#2}};
-      \node[anchor=south west] at ([xshift=.50\paperwidth]current page.south west)
-        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#3}};
-      \node[anchor=south west] at ([xshift=.75\paperwidth]current page.south west)
-        {\includegraphics[width=.25\paperwidth,height=\paperheight]{#4}};
-
-      % Fold guides
-      \draw[PanelLine,opacity=0.35,line width=0.7pt]
-        ([xshift=.25\paperwidth]current page.south west) -- ([xshift=.25\paperwidth]current page.north west);
-      \draw[PanelLine,opacity=0.35,line width=0.7pt]
-        ([xshift=.50\paperwidth]current page.south west) -- ([xshift=.50\paperwidth]current page.north west);
-      \draw[PanelLine,opacity=0.35,line width=0.7pt]
-        ([xshift=.75\paperwidth]current page.south west) -- ([xshift=.75\paperwidth]current page.north west);
+      \node[
+        anchor=south west,
+        inner sep=0pt,
+        outer sep=0pt
+      ] at (current page.south west) {%
+        \includegraphics[width=\paperwidth,height=\paperheight]{#1}%
+      };
     \end{tikzpicture}%
-  }
+  }%
 }
 
-\newenvironment{panelcontent}
-  {\begin{minipage}[t][0.94\paperheight][t]{0.22\paperwidth}\color{PanelText}\small}
-  {\end{minipage}}
+% Content area placed on top of background
+\newenvironment{panelpage}[2][3]
+{%
+  \clearpage
+  \pagebackground{#2}
+  \color{PanelText}
+  \begin{adjustwidth}{1cm}{1cm}
+    \setlength{\columnsep}{1em}
+    \raggedcolumns
+    \begin{multicols}{#1}
+}
+{%
+    \end{multicols}
+  \end{adjustwidth}
+  \ClearShipoutPictureBG
+  \ClearShipoutPictureFG
+  \clearpage
+}
 
-\newenvironment{panelcols}
-  {\begin{multicols}{2}\setlength{\columnsep}{0.8em}}
-  {\end{multicols}}
+% Optional compact table box
+\newcommand{\boxtable}[2]{%
+  \begin{tcolorbox}[screenbox,title={#1}]
+  \begin{tabularx}{\linewidth}{@{}Yc@{}}
+  #2
+  \end{tabularx}
+  \end{tcolorbox}
+}
+
+\newcommand{\panelnote}[2]{%
+  \AddToShipoutPictureFG{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[
+        anchor=south east,
+        xshift=-1.2cm,
+        yshift=1.0cm,
+        align=right,
+        text width=7cm
+      ] at (current page.south east) {%
+        {\fontsize{8pt}{10pt}\selectfont\color{PanelNote}%
+        \textit{Art: #1}\\
+        Rules: #2}%
+      };
+    \end{tikzpicture}%
+  }%
+}
+
+% Better spacing for tables
+\setlength{\tabcolsep}{5pt}
+
+% Mass Effect-style table box
+\newtcolorbox{scifitablebox}[1][]{
+  enhanced,
+  breakable,
+  colback=PanelBoxBg,
+  colframe=PanelBoxBorder,
+  boxrule=0.7pt,
+  arc=2mm,
+  left=1.5mm,
+  right=1.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  opacityback=0.94,
+  #1
+}
+
+
+
+\newcommand{\tablebody}{\color{PanelText}}
+
+% Header cell style
+\newcommand{\tablehead}[1]{%
+  \textcolor{TableHeaderText}{\bfseries #1}%
+}
+
+% Standard 2-column panel table
+\newcommand{\paneltabletwo}[3]{%
+  % #1 title
+  % #2 column spec, e.g. {>{\RaggedRight\arraybackslash}p{0.7\linewidth} >{\centering\arraybackslash}p{0.18\linewidth}}
+  % #3 rows
+  \begin{scifitablebox}
+  \ifstrempty{#1}{}{%
+    {\bfseries\color{PanelGlow}#1}\par\vspace{0.4em}
+  }
+  \arrayrulecolor{TableRule}
+  \rowcolors{2}{TableRowAlt}{PanelBoxBg}
+  \begin{tabularx}{\linewidth}{#2}
+    \rowcolor{TableHeaderBg}
+    #3
+  \end{tabularx}
+  \end{scifitablebox}
+}
+
+% Easy 2-column table wrapper
+\newcommand{\simpletwotable}[4]{%
+  \begin{scifitablebox}
+  \ifstrempty{#1}{}{%
+    {\bfseries\color{PanelGlow}#1}\par\vspace{0.4em}
+  }
+  {\color{PanelText} % 👈 enforce body text color
+  \arrayrulecolor{TableRule}
+  \rowcolors{2}{TableRowAlt}{PanelBoxBg}
+  \begin{tabularx}{\linewidth}{>{\color{PanelText}\RaggedRight\arraybackslash}X >{\color{PanelText}\centering\arraybackslash}p{0.22\linewidth}}
+    \rowcolor{TableHeaderBg}
+    \tablehead{#2} & \tablehead{#3} \\
+    #4
+  \end{tabularx}
+  }
+  \end{scifitablebox}
+}
+
+% Easy 3-column table wrapper
+\newcommand{\simplethreetable}[5]{%
+  \begin{scifitablebox}
+  \ifstrempty{#1}{}{%
+    {\bfseries\color{PanelGlow}#1}\par\vspace{0.4em}
+  }
+  {\color{PanelText}
+  \arrayrulecolor{TableRule}
+  \rowcolors{2}{TableRowAlt}{PanelBoxBg}
+  \begin{tabularx}{\linewidth}{
+    >{\color{PanelText}\RaggedRight\arraybackslash}X
+    >{\color{PanelText}\centering\arraybackslash}p{0.16\linewidth}
+    >{\color{PanelText}\centering\arraybackslash}p{0.16\linewidth}
+  }
+    \rowcolor{TableHeaderBg}
+    \tablehead{#2} & \tablehead{#3} & \tablehead{#4} \\
+    #5
+  \end{tabularx}
+  }
+  \end{scifitablebox}
+}
+
+% Ultra-compact dense table for cramped panels
+\newcommand{\compacttabletwo}[4]{%
+  \begin{scifitablebox}[left=1mm,right=1mm,top=1mm,bottom=1mm]
+  \ifstrempty{#1}{}{%
+    {\bfseries\color{PanelGlow}#1}\par\vspace{0.25em}
+  }
+  {\fontsize{11pt}{13pt}\selectfont
+  \color{PanelText}
+  \arrayrulecolor{TableRule}
+  \rowcolors{2}{TableRowAlt}{PanelBoxBg}
+  \begin{tabularx}{\linewidth}{>{\color{PanelText}\RaggedRight\arraybackslash}X >{\color{PanelText}\centering\arraybackslash}p{0.18\linewidth}}
+    \rowcolor{TableHeaderBg}
+    \tablehead{#2} & \tablehead{#3} \\
+    #4
+  \end{tabularx}}
+  \end{scifitablebox}
+}
+
+\newcommand{\longeffecttable}[4]{%
+  \begin{scifitablebox}[left=1mm,right=1mm,top=1mm,bottom=1mm]
+  \ifstrempty{#1}{}{%
+    {\bfseries\color{PanelGlow}#1}\par\vspace{0.25em}
+  }
+  {\fontsize{11pt}{13pt}\selectfont
+  \color{PanelText}
+  \arrayrulecolor{TableRule}
+  \rowcolors{2}{TableRowAlt}{PanelBoxBg}
+  \begin{tabularx}{\linewidth}{
+    >{\color{PanelText}\centering\arraybackslash}p{0.14\linewidth}
+    >{\color{PanelText}\RaggedRight\arraybackslash}X
+  }
+    \rowcolor{TableHeaderBg}
+    \tablehead{#2} & \tablehead{#3} \\
+    #4
+  \end{tabularx}}
+  \end{scifitablebox}
+}
+
+\newcommand{\longthreeeffecttable}[5]{%
+  \begin{scifitablebox}[left=1mm,right=1mm,top=1mm,bottom=1mm]
+  \ifstrempty{#1}{}{%
+    {\bfseries\color{PanelGlow}#1}\par\vspace{0.25em}
+  }
+  {\fontsize{11pt}{13pt}\selectfont
+  \color{PanelText}
+  \arrayrulecolor{TableRule}
+  \rowcolors{2}{TableRowAlt}{PanelBoxBg}
+  \begin{tabularx}{\linewidth}{
+    >{\color{PanelText}\RaggedRight\arraybackslash}p{0.18\linewidth}
+    >{\color{PanelText}\centering\arraybackslash}p{0.12\linewidth}
+    >{\color{PanelText}\RaggedRight\arraybackslash}X
+  }
+    \rowcolor{TableHeaderBg}
+    \tablehead{#2} & \tablehead{#3} & \tablehead{#4} \\
+    #5
+  \end{tabularx}}
+  \end{scifitablebox}
+}

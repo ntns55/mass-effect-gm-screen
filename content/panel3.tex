@@ -1,5 +1,44 @@
-\paneltitle{SOCIAL}
+  \longeffecttable{Disgruntled Crew}
+  {d20 + crew}
+  {Effect}
+  {
+    1-5 & Nothing happens.\\
+    6-8 & A fight breaks out between two crew members. Another member of your crew becomes disgruntled.\\
+    9-11 & One of your disgruntled crew quits the next time you’re at port.\\
+    12-13 & A crew member starts an private email chain that infuriates the other crew. Two additional crew become disgruntled.\\
+    14-15 & All of your disgruntled crew quit the next time you’re at port.\\
+    16-17 & A crew member forgets to service their system. You must pay 3,000 credits before you can use it again. (If this is the Drive, you ship cannot move between systems)\\
+    18-19& A crew member sabotages their system. You must pay 20,000 credits before you can use it again. (If this is the Drive, you ship cannot move between systems)\\
+    20+& The crew mutinies. They all become hostile and attack your party.\\
+  }
 
-\begin{tcolorbox}[screenbox,title=\textcolor{PanelGlow}{NPCs}]
-Placeholder content for NPC and social rules.
-\end{tcolorbox}
+\begin{scifitablebox}[screenbox,title=\textcolor{PanelGlow}{Actions}]
+\begin{itemize}
+    \item \textbf{Attack - \underline{Weapon System}:} \textit{Make a ranged attack roll. Do not add your proficiency bonus unless you are proficient with Starship Systems (Weapons).} 
+    \item \textbf{Targeted Attack - \underline{Weapon System}:} \textit{Same as normal attack but: Name a system on target. Target get +5 AC. On hit system is disabled and crew at station takes half damage.}
+    \item \textbf{Maneuver - \underline{Helm}:} \textit{DC 15 Vehicle Handling check. Success adds half ship speed to AC until crews mext turn.}
+    \item \textbf{Hard Maneuver - \underline{Helm}:} \textit{DC 20 Vehicle Handling check. Success adds double ship speed to AC until crews mext turn. All on ship must make Constitution save\footnote{Personally use DC 20(adjust for ship size) minus how much pilot was over check. EG: pilot rolls 25, making con save 15. Best use is to state this to the pilot when they take action before they roll.}. On fail disadvantage on next action and no move.}
+    \item \textbf{Repair - \underline{Anywhere}:} \textit{DC 15 Engineering check. Success restores 50 Hull Points.}
+    \item \textbf{Advanced Repair - \underline{Anywhere}:} \textit{DC 20 Engineering check. Success restores 150 Hull Points.}
+    \item \textbf{System Repair - \underline{Disabled System}:} \textit{DC 20 Engineering check. Success restores system.}
+    \item \textbf{Restore - \underline{Drive}:} \textit{DC 15 Engineering check. Success restores 100 shield.}
+    \item \textbf{Harden - \underline{EWS}:} \textit{DC 10 Electronics check. Success until crews next turn all hacking attempt against ship has disadvantage.}
+    \item \textbf{Sabotage - \underline{EWS}:} \textit{Electronics check based on table.}
+    \item \textbf{Scan - \underline{SSC}:} \textit{DC 15 Investigation check. Success means asking the GM a question about taget ship. The GM must tell the truth.}
+    \item \textbf{Flee - \underline{Navigation}:} \textit{DC 14 Science check. Success means moving to another system.}
+    \item \textbf{Move - \underline{Anywhere}:} \textit{Move character to other ship system}
+    \item \textbf{Help - \underline{Anywhere}:} \textit{Other person at your current location gets advantage}
+    \item \textbf{Defer to VI - \underline{Anywhere}:} \textit{Attempt to use a system you are not at. Check is done with a clean 1d20 with no modifiers.}
+\end{itemize}
+\end{scifitablebox}
+\longthreeeffecttable{Hacking table}
+  {Target}
+  {DC}
+  {Effect}
+  {
+   SSC & 10 & Target cannot take the Scan action until the start of your next turn. \\
+    Helm & 12 & Target has disadvantage on Maneuver and Hard Maneuver checks until the start of your next turn. \\
+    Shields & 15 & Reduce the targets shields by 1d4 (x50) \\
+    Navigation & 18 & The target ship cannot Flee. \\
+    Weapons & 20 & Target has disadvantage on Attack and Targeted attack rolls until the start of your next turn.
+  }
